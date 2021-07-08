@@ -27,6 +27,9 @@ def write_str_to_file(file: str, string: str):
     with open(file, "w") as fp:
         fp.write(string)
 
+def write_line_to_file(file: str, string: str):
+    write_str_to_file(file, string + "\n")
+
 def try_shell_launch():
     init_shell = ""
     try:
@@ -43,14 +46,14 @@ def try_shell_launch():
             print("Couldn't find your shell, exiting.")
             exit(0)
 
-def get_user_name():
-    name = ""
-    while name == "":
+def get_user_input(desc):
+    rval = ""
+    while rval == "":
         try:
-            name = input("Enter your name: ")
+            rval = input(f"Enter {desc}: ")
         except:
-            name = "<copyright holders>"
-    return name
+            rval = None
+    return rval
 
 def cancellable_input(prompt):
     try:
@@ -109,8 +112,7 @@ if __name__ == "__main__":
         fpath = get_proj_path(file)
 
         if 'shebang' in fobj:
-            write_str_to_file(fpath, fobj['shebang'])
-            write_str_to_file(fpath, "\n")
+            write_line_to_file(fpath, fobj['shebang'])
         
         write_str_to_file(fpath, fobj['contents'])
 
@@ -118,10 +120,17 @@ if __name__ == "__main__":
         Path(get_proj_path('TODO')).touch()
 
     if args.readme:
-        Path(get_proj_path('README.md')).touch()
-    
+        readme_path = get_proj_path('README.md')
+        print("Creating readme...")
+        pretty_name = get_user_input("a name for your project") or "Project"
+        desc = get_user_input("a line describing your project") or "Description line."
+        write_line_to_file(readme_path, f"# {pretty_name}")
+        write_line_to_file(readme_path, "")
+        write_line_to_file(readme_path, f"{desc}")
+
     if args.license:
-        name = get_user_name()
+        print("Creating license...")
+        name = get_user_input("your name") or "<copyright holders>"
         body = licenses[args.license] % (name,)
         write_str_to_file(get_proj_path('LICENSE'), body)
     
