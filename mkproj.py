@@ -24,7 +24,7 @@ def die(*msg, exitcode=1):
     exit(exitcode)
 
 def write_str_to_file(file: str, string: str):
-    with open(file, "w+") as fp:
+    with open(file, "a+") as fp:
         fp.write(string)
 
 def write_line_to_file(file: str, string: str):
