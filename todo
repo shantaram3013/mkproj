@@ -1,0 +1,9 @@
+functionality:
+    - static html5
+    - html5 webapp
+    - python script
+    - deno project (maybe with run/test scripts?)
+    - c program (makefile etc)
+    - bash script (add #!)
+    - node project
+    - add README and LICENSE files
