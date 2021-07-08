@@ -66,6 +66,8 @@ def initialise_parser(parser):
                       help='Creates a README file if this option is present.')
     parser.add_argument('-t', '--todo', action='store_true',
                       help='Creates a TODO file if this option is present.')
+    parser.add_argument('-s', '--shebang', type='str',
+                      help='Adds a shebang for supported files if this option is present.')
     parser.add_argument('-l', '--license', type=str,
                       help='The name of a license to use.', choices=set(licenses.keys()))
 
@@ -103,7 +105,14 @@ if __name__ == "__main__":
 
     proj = types[args.type]
     for file in proj['files']:
-        write_str_to_file(get_proj_path(file), proj['files'][file]['contents'])
+        fobj = proj['files'][file]
+        fpath = get_proj_path(file)
+
+        if 'shebang' in fobj:
+            write_str_to_file(fpath, fobj['shebang'])
+            write_str_to_file(fpath, "\n")
+        
+        write_str_to_file(fpath, fobj['contents'])
 
     if args.todo:
         Path(get_proj_path('TODO')).touch()
