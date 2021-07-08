@@ -66,7 +66,7 @@ def initialise_parser(parser):
                       help='Creates a README file if this option is present.')
     parser.add_argument('-t', '--todo', action='store_true',
                       help='Creates a TODO file if this option is present.')
-    parser.add_argument('-s', '--shebang', type='str',
+    parser.add_argument('-s', '--shebang', action='store_true',
                       help='Adds a shebang for supported files if this option is present.')
     parser.add_argument('-l', '--license', type=str,
                       help='The name of a license to use.', choices=set(licenses.keys()))
