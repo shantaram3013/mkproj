@@ -122,6 +122,7 @@ if __name__ == "__main__":
     
     if args.license:
         name = get_user_name()
-        write_str_to_file(get_proj_path('LICENSE'), licenses[args.license].format(name))
+        body = licenses[args.license] % (name,)
+        write_str_to_file(get_proj_path('LICENSE'), body)
     
     try_shell_launch()
