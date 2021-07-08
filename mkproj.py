@@ -111,7 +111,7 @@ if __name__ == "__main__":
         fobj = proj['files'][file]
         fpath = get_proj_path(file)
 
-        if 'shebang' in fobj:
+        if args.shebang and 'shebang' in fobj:
             write_line_to_file(fpath, fobj['shebang'])
         
         write_str_to_file(fpath, fobj['contents'])
