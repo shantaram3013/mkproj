@@ -59,7 +59,7 @@ types = {
                     if __name__ == "__main__":
                         pass
                 """),
-                "shebang": "/usr/bin/env python3"
+                "shebang": "#!/usr/bin/env python3"
             },
         }
     },
