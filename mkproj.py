@@ -24,7 +24,7 @@ def die(*msg, exitcode=1):
     exit(exitcode)
 
 def write_str_to_file(file: str, string: str):
-    with open(file, "w") as fp:
+    with open(file, "w+") as fp:
         fp.write(string)
 
 def write_line_to_file(file: str, string: str):
@@ -112,6 +112,7 @@ if __name__ == "__main__":
         fpath = get_proj_path(file)
 
         if args.shebang and 'shebang' in fobj:
+            print('test')
             write_line_to_file(fpath, fobj['shebang'])
         
         write_str_to_file(fpath, fobj['contents'])
