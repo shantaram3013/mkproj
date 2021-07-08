@@ -39,7 +39,7 @@ types = {
                             <link rel='stylesheet' href='style.css'>
                         </head>
                         <body>
-                            <script defer src='main.js'>
+                            <script defer src='main.js'></script>
                         </body>
                         </html>
                     """),

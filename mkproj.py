@@ -35,7 +35,7 @@ def try_shell_launch():
     try:
         init_shell = input("Initialise a shell in the new dir? (yes/no) ")
     except:
-        die('Canceled.')
+        exit(0)
     if init_shell in ['n', 'no']:
         exit(0)
     else:
@@ -59,7 +59,7 @@ def cancellable_input(prompt):
     try:
         return input(prompt)
     except:
-        die("Canceled.")
+        die("\nCanceled.")
 
 def initialise_parser(parser):
     parser.add_argument('name', type=str,
