@@ -54,3 +54,6 @@ You could also create a symlink to it:
 ### Contributing:
 
 Feel free to make PRs to add licenses and project types of your own! I'll review them whenever I can.
+
+---
+Copyright © 2021 Siddharth Singh
