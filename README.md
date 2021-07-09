@@ -26,27 +26,28 @@ A python script to quickly generate a project directory with boilerplate for a v
 ### Installing:
 `mkproj` is intended to be installed via a shell alias or script so that you can supply whatever arguments you prefer to create your default project with.
 
-In bash, you can create an alias for mkproj with:
+For example, to create a bash alias that enables readme and todo creation and generates the MIT license by default:
 ```bash
     echo 'alias mkproj="/path/to/this/repo/mkproj.py -r -t -l MIT"' >> $HOME/.bashrc
 ```
 
-In fish:
-
+The same example in fish:
 <!--Yes, I know fish isn't bash, but syntax highlighting is nice.-->
 ```bash
     alias mkproj='/path/to/this/repo/mkproj.py -r -t -l MIT'
     funcsave mkproj
 ```
 
-and invoke it with:
+Then you can invoke it with:
 ```bash
     mkproj ProjectName Target
 ```
 
 Alternatively, create a shell script in a location that's on your `PATH` and call mkproj within it.
 
-You could also create a symlink to it:
+You could also create a symlink to it.
+
+For example, to create a symlink in `$HOME/.local/bin`:
 ```bash
     ln -s /path/to/this/repo/mkproj.py "$HOME"/.local/bin
 ```

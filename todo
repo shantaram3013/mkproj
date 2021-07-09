@@ -5,3 +5,4 @@ functionality:
 improvements:
     - add newlines at eof
     - use a list to write lines to files
+    - add more licenses

@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 
 import argparse
-import shutil
 import os
+import shutil
 import subprocess
 import sys
+import textwrap
 
 from pathlib import Path
 
-from mkproj_licenses import licenses
+from mkproj_licenses import licenses, year
 from mkproj_types import types
 
 def delete_path(path):
@@ -137,7 +138,14 @@ if __name__ == "__main__":
     if args.license:
         print("Creating license...")
         name = get_user_input("your name") or "<copyright holders>"
-        body = licenses[args.license] % (name,)
-        write_str_to_file(get_proj_path('LICENSE'), body)
+        lic = licenses[args.license]
+
+        for file in lic['files']:
+            body_str = textwrap.dedent(lic['files'][file]['contents'])
+            if file == "LICENSE":
+                body_str = body_str.replace("YYYY", year) % name
+            write_str_to_file(get_proj_path(file), body_str)
+        
+        print("License created. Be sure to read up on the terms of your license and add headers to each project file!")
     
     try_shell_launch()
