@@ -3,11 +3,11 @@
 A python script to quickly generate a project directory with boilerplate for a variety of technologies.
 
 ### Currently supported targets:
-* `c` - A C project. Creates a Makefile and main.c file.
-* `deno` - A deno project. Creates a Makefile and main.ts file.
+* `c` - A C project. Creates a `Makefile` and `main.c` file.
+* `deno` - A deno project. Creates a `Makefile` and `main.ts` file.
 * `html5` - An HTML5 static site.
-* `node` - uses `npm init` to initialise your project.
-* `py` - a python project
+* `node` - Uses `npm init` to initialise your project.
+* `py` - A Python project.
 * `webapp` - An HTML5/CSS/JS webapp.
 
 ### Usage:
@@ -50,3 +50,7 @@ You could also create a symlink to it:
 ```bash
     ln -s /path/to/this/repo/mkproj.py "$HOME"/.local/bin
 ```
+
+### Contributing:
+
+Feel free to make PRs to add licenses and project types of your own! I'll review them whenever I can.
