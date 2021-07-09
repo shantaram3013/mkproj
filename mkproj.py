@@ -107,14 +107,20 @@ if __name__ == "__main__":
     subprocess.run(['git', 'init'])
 
     proj = types[args.type]
-    for file in proj['files']:
-        fobj = proj['files'][file]
-        fpath = get_proj_path(file)
 
-        if args.shebang and 'shebang' in fobj:
-            write_line_to_file(fpath, fobj['shebang'])
-        
-        write_str_to_file(fpath, fobj['contents'])
+    if 'files' in proj:
+        for file in proj['files']:
+            fobj = proj['files'][file]
+            fpath = get_proj_path(file)
+
+            if args.shebang and 'shebang' in fobj:
+                write_line_to_file(fpath, fobj['shebang'])
+            
+            write_str_to_file(fpath, fobj['contents'])
+    
+    if 'commands' in proj:
+        for command in proj['commands']:
+            subprocess.run(command)
 
     if args.todo:
         Path(get_proj_path('TODO')).touch()

@@ -1,4 +1,7 @@
 functionality:
-    - deno project (maybe with run/test scripts?)
-    - node project
     - gitignore support
+    - support extending built-in dicts with json files
+
+improvements:
+    - add newlines at eof
+    - use a list to write lines to files
