@@ -28,7 +28,7 @@ A python script to quickly generate a project directory with boilerplate for a v
 
 For example, to create a bash alias that enables readme and todo creation and generates the MIT license by default:
 ```bash
-    echo 'alias mkproj="/path/to/this/repo/mkproj.py -r -t -l MIT"' >> $HOME/.bashrc
+    echo 'alias mkproj="/path/to/this/repo/mkproj.py -r -t -l MIT"' >> "$HOME"/.bashrc
 ```
 
 The same example in fish:
