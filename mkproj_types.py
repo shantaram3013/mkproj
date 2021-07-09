@@ -1,7 +1,7 @@
 import textwrap
 
 types = {
-    'html5_static': {
+    'html5': {
         'files': {
             'index.html': {
                 "contents": textwrap.dedent("""\
