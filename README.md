@@ -1,7 +1,8 @@
 # mkproj
 
 A python script to quickly generate a project directory with boilerplate for a
-variety of technologies. Also initialises an empty git repo.
+variety of technologies. Also initialises an empty git repo. Think of it as
+`mkdir on steroids`.
 
 ### Currently supported targets:
 
