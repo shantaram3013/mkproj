@@ -28,7 +28,7 @@ types = {
     'webapp': {
         'files': {
             'index.html': {
-                    "contents": textwrap.dedent("""\
+                "contents": textwrap.dedent("""\
                         <!DOCTYPE html>
                         <html lang="en">
                         <head>
@@ -87,17 +87,17 @@ types = {
                     default: $(NAME)
 
                     $(NAME): $(NAME).o # $(DEPENDS)
-                        $(CC) -o $(OUTPUT_FILE) $(CFLAGS) $(NAME).o # $(DEPENDS)
+                    	$(CC) -o $(OUTPUT_FILE) $(CFLAGS) $(NAME).o # $(DEPENDS)
 
                     $(NAME).o: $(NAME).c # $(DEPEND_HEADER_FILES) 
-                        $(CC) -c $(NAME).c
+                    	$(CC) -c $(NAME).c
 
                     # Add each dependency like this:
                     # dep.o: dep.h dep.c
-                    #    $(CC) $(CFLAGS) -c dep.c
+                    #	$(CC) $(CFLAGS) -c dep.c
 
                     run: $(NAME)
-                        ./$(OUTPUT_FILE)
+                    	./$(OUTPUT_FILE)
                 """)
             }
         }
@@ -113,9 +113,9 @@ types = {
             'Makefile': {
                 'contents': textwrap.dedent("""\
                     MAKE_OPTIONS = --unstable
-                    PERMS = --allow-net --allow-env --allow-read --allow-write # Deno permissions
+                    PERMS = --allow-env --allow-read --allow-write # Deno permissions
                     ENTRYPOINT = main.ts
-                    DENO_NAME ?= main # install with DENO_NAME=foo to install under a different name
+                    DENO_NAME ?= cyblog # install with DENO_NAME=foo to install under a different name
 
                     # set DENO_MAKE_EXTRA_OPTIONS in environment to supply extra build options.
                     OPTIONS = $(MAKE_OPTIONS) $(DENO_MAKE_EXTRA_OPTIONS)
@@ -123,19 +123,19 @@ types = {
                     default: compile
 
                     dev:
-                        deno run $(PERMS) $(OPTIONS) --watch $(ENTRYPOINT)
-                    
+                    	deno run $(PERMS) $(OPTIONS) --watch $(ENTRYPOINT) $(DENO_RUN_OPTIONS)
+
                     bundle:
-                        deno bundle $(OPTIONS) $(ENTRYPOINT) $(DENO_NAME)
+                    	deno bundle $(OPTIONS) $(ENTRYPOINT) $(DENO_NAME)
 
                     compile:
-                        deno compile $(PERMS) $(OPTIONS) $(ENTRYPOINT)
+                    	deno compile $(PERMS) $(OPTIONS) $(ENTRYPOINT)
 
                     install:
-                        deno install $(PERMS) $(OPTIONS) -n $(DENO_NAME)
-                    
+                    	deno install $(PERMS) $(OPTIONS) -n $(DENO_NAME)
+
                     run:
-                        deno run $(PERMS) $(OPTIONS) $(ENTRYPOINT)
+                    	deno run $(PERMS) $(OPTIONS) $(ENTRYPOINT) $(DENO_RUN_OPTIONS)
                 """)
             }
         }
