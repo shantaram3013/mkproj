@@ -77,9 +77,12 @@ types = {
             },
             "Makefile": {
                 "contents": textwrap.dedent("""\
-                    NAME = main # filename of the file containing main()
-                    CC ?= gcc # C compiler
-                    CFLAGS = -Wall -Wextra -Wunreachable-code # Compiler flags we want to use
+                    # filename of the file containing main()
+                    NAME = main
+                    # C compiler
+                    CC ?= gcc
+                    # Compiler flags we want to use
+                    CFLAGS = -Wall -Wextra -Wunreachable-code -g -ggdb
                     # DEPENDS = dep.o # dependency name, uncomment to use (object files only)
                     # DEPEND_HEADER_FILES = dep.h # header files for dependency building, uncomment to use
                     OUTPUT_FILE = a.out # Filename of the final, compiled executable
@@ -87,7 +90,7 @@ types = {
                     default: $(NAME)
 
                     $(NAME): $(NAME).o # $(DEPENDS)
-                    	$(CC) -o $(OUTPUT_FILE) $(CFLAGS) $(NAME).o # $(DEPENDS)
+                    	$(CC) -o $(OUTPUT_FILE) $(CFLAGS) $(NAME).o
 
                     $(NAME).o: $(NAME).c # $(DEPEND_HEADER_FILES) 
                     	$(CC) -c $(NAME).c
