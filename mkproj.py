@@ -249,7 +249,10 @@ if __name__ == "__main__":
         for file in lic['files']:
             body_str = textwrap.dedent(lic['files'][file]['contents'])
             if file == "LICENSE":
-                body_str = body_str.replace("YYYY", year) % name
+                try:
+                    body_str = body_str.replace("YYYY", year) % name
+                except:
+                    print("License does not need name field. Proceeding silently.")
             write_str_to_file(get_proj_path(file), body_str)
 
         print("License created. Be sure to read up on the terms of your license and add headers to each project file!")
