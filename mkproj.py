@@ -56,9 +56,14 @@ def try_shell_launch():
         exit(0)
 
 
-def get_user_input(desc):
+def get_user_input(desc, retry = True):
     rval = ""
-    while rval == "":
+    try:
+        rval = input(f"Enter {desc}: ")
+    except:
+        rval = None
+
+    while retry and rval == "":
         try:
             rval = input(f"Enter {desc}: ")
         except:
@@ -71,6 +76,12 @@ def cancellable_input(prompt):
         return input(prompt)
     except:
         die("\nCanceled.")
+
+def cancellable_input_graceful(prompt):
+    try:
+        return input(prompt)
+    except:
+        return False
 
 
 def input_bool(prompt):
@@ -114,7 +125,8 @@ if __name__ == "__main__":
         t = args.type
         if not t:
             t = get_user_input(
-                'a type from [' + ', '.join(types.keys()) + '] for your project')
+                'a type from [' + ', '.join(types.keys()) + '] for your project'
+            )
             if t not in types.keys():
                 die('Invalid type selected.')
         readme = args.readme
@@ -126,14 +138,18 @@ if __name__ == "__main__":
         shebang = args.shebang
         if not shebang:
             shebang = input_bool('Add shebangs to supported files? (y/N) ')
+
         lic = args.license
         if not lic:
-            create_lic = input_bool('Add a license? ')
-            if create_lic:
-                lic = get_user_input(
-                    'a license from [' + ', '.join(licenses.keys()) + '] for your project')
-                if lic not in licenses.keys():
-                    die('Invalid license selected.')
+            lic = get_user_input(
+                    'a license from [' + ', '.join(licenses.keys()) + '] for your project.'
+                    '\nLeave empty to skip',
+                    False
+                )
+            if lic != '' and lic not in licenses.keys():
+                die('Invalid license selected.')
+            elif lic == '':
+                pass
 
         constructed_args = ['-n', name, '-t', t]
         if readme:
@@ -152,7 +168,7 @@ if __name__ == "__main__":
     if (args.readme):
         args_list.append('Create readme')
     if (args.license):
-        args_list.append('Create license')
+        args_list.append(f'Create license [you picked: {lic}]')
     if (args.shebang):
         args_list.append('Add shebangs to supported files')
 
@@ -162,21 +178,22 @@ if __name__ == "__main__":
 
     print((confirm_string + args_string) % (args.name, args.type))
     cnf = input_bool('Is this correct? (y/N): ')
-    if cnf:
-        pass
-    else:
+    if not cnf:
         die('Cancelled.')
 
     proj_dir = os.path.join(os.getcwd(), args.name)
+
     def get_proj_path(x): return os.path.join(proj_dir, x)
 
     if os.path.exists(proj_dir):
         overwrite = input_bool(
-            "Cannot create project directory: a file or directory with the same name already exists. Try deleting it? (y/N) ")
+            "Cannot create project directory: a file or directory with the same name already exists. Try deleting it? (y/N) "
+        )
         if not overwrite:
             die('Cancelled.')
         confirm = cancellable_input(
-            f'Type "{args.name.replace("/", "")}" (without the quotes) to confirm deletion. THIS CANNOT BE UNDONE! ')
+            f'Type "{args.name.replace("/", "")}" (without the quotes) to confirm deletion. THIS CANNOT BE UNDONE! '
+        )
         if confirm != args.name:
             die("Canceled.")
         delete_path(proj_dir)
@@ -195,6 +212,11 @@ if __name__ == "__main__":
     if 'files' in proj:
         for file in proj['files']:
             fobj = proj['files'][file]
+            if (file.endswith('/')):
+                Path(os.path.join(proj_dir, file)).mkdir(exist_ok=True, parents=True)
+                continue
+            if os.path.dirname(file) != '':
+                Path(os.path.join(proj_dir, os.path.dirname(file))).mkdir(exist_ok=True, parents=True)
             fpath = get_proj_path(file)
 
             if args.shebang and 'shebang' in fobj:
@@ -213,8 +235,8 @@ if __name__ == "__main__":
         readme_path = get_proj_path('README.md')
         print("Creating readme...")
         pretty_name = args.name
-        desc = get_user_input(
-            "a line describing your project") or "Description line."
+        desc = get_user_input("a line describing your project") or "Description"
+
         write_line_to_file(readme_path, f"# {pretty_name}")
         write_line_to_file(readme_path, "")
         write_line_to_file(readme_path, f"{desc}")
@@ -231,5 +253,8 @@ if __name__ == "__main__":
             write_str_to_file(get_proj_path(file), body_str)
 
         print("License created. Be sure to read up on the terms of your license and add headers to each project file!")
+
+    if 'message' in proj:
+        print(proj['message'])
 
     try_shell_launch()

@@ -11,6 +11,7 @@ variety of technologies. Also initialises an empty git repo. Think of it as
 - `html5` - An HTML5 static site.
 - `node` - Uses `npm init` to initialise your project.
 - `py` - A Python project.
+- `ts_web` - A webapp that uses TypeScript and esbuild.
 - `webapp` - An HTML5/CSS/JS webapp.
 
 ### Usage:

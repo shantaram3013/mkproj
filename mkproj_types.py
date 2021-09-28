@@ -106,7 +106,97 @@ types = {
         }
     },
     'node': {
-        'commands': [['npm', 'init'], ]
+        'commands': [['npm', 'init']]
+    },
+    'ts_node': {
+        'commands': [['npm', 'init'], ['npm', 'install', 'tsc']]
+    },
+    'ts_web': {
+        'commands': [['npm', 'install', '--save-dev', 'tsc', 'esbuild']],
+        'files': {
+            'index.html': {
+                "contents": textwrap.dedent("""\
+                        <!DOCTYPE html>
+                        <html lang="en">
+                        <head>
+                            <meta charset="UTF-8">
+                            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                            <title>Document</title>
+                            <link rel='stylesheet' href='style.css'>
+                        </head>
+                        <body>
+                            <script defer src='dist/main.js'></script>
+                        </body>
+                        </html>
+                    """),
+            },
+            "style.css": {
+                "contents": ""
+            },
+            "src/main.ts": {
+                "contents": ""
+            },
+            "tsconfig.json": {
+                "contents": textwrap.dedent("""\
+                    {
+                        "compilerOptions": {
+                            "outDir": "./dist",
+                            "allowJs": true,
+                            "target": "es6",
+                            "noImplicitAny": true,
+                            "strictNullChecks": true,
+                            "lib": ["ES2020", "DOM"],
+                            "module":"ES6",
+                            "moduleResolution": "node",
+                        },
+                        "include": [
+                            "./src/**/*"
+                        ]
+                    }
+                """)
+            },
+            'esbuild.config.js': {
+                'contents': textwrap.dedent("""\
+                    require('esbuild').build({
+                        entryPoints: ['src/main.ts'],
+                        bundle: true,
+                        outfile: 'dist/main.js',
+                        watch: true
+                    }).catch((err) => {
+                        console.error(err)
+                        process.exit(1)
+                    })
+                """)
+            },
+            "dist/": {},
+            '.gitignore': {
+                'contents': textwrap.dedent("""\
+                    logs
+                    *.log
+                    npm-debug.log*
+                    yarn-debug.log*
+                    yarn-error.log*
+                    lerna-debug.log*
+                    .pnpm-debug.log*
+                    node_modules
+                    report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+                    pids
+                    *.pid
+                    *.seed
+                    *.pid.lock
+                    node_modules/
+                    *.npm
+                    *.tsbuildinfo
+                    *.tgz
+                    .env
+                    .env.test
+                    .env.production
+                    dist
+                """)
+            }
+        },
+        'message': 'Run `node esbuild.config.js` to develop.'
     },
     'deno': {
         'files': {
