@@ -109,7 +109,33 @@ types = {
         'commands': [['npm', 'init']]
     },
     'ts_node': {
-        'commands': [['npm', 'init'], ['npm', 'install', 'tsc']]
+        'commands': [['npm', 'init'], ['npm', 'install', 'tsc']],
+        "files": {
+            ".gitignore": {
+                "contents": textwrap.dedent("""\
+                                logs
+                                *.log
+                                npm-debug.log*
+                                yarn-debug.log*
+                                yarn-error.log*
+                                lerna-debug.log*
+                                .pnpm-debug.log*
+                                node_modules
+                                report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+                                pids
+                                *.pid
+                                *.seed
+                                *.pid.lock
+                                node_modules/
+                                *.npm
+                                *.tsbuildinfo
+                                *.tgz
+                                .env
+                                .env.test
+                                .env.production
+                            """)
+            }
+        }
     },
     'ts_web': {
         'commands': [['npm', 'install', '--save-dev', 'tsc', 'esbuild']],
@@ -192,7 +218,6 @@ types = {
                     .env
                     .env.test
                     .env.production
-                    dist
                 """)
             }
         },
