@@ -115,6 +115,7 @@ if __name__ == "__main__":
 
     initialise_parser(parser)
     args = parser.parse_args()
+    lic = args.license
 
     if not len(sys.argv) > 1 or not args.name or not args.type:
         name = args.name
@@ -139,7 +140,6 @@ if __name__ == "__main__":
         if not shebang:
             shebang = input_bool('Add shebangs to supported files? (y/N) ')
 
-        lic = args.license
         if not lic:
             lic = get_user_input(
                     'a license from [' + ', '.join(licenses.keys()) + '] for your project.'
@@ -159,7 +159,10 @@ if __name__ == "__main__":
         if shebang:
             constructed_args.append('-s')
         if lic:
-            constructed_args += ['-l', lic]
+            if lic in licenses.keys():
+                constructed_args += ['-l', lic]
+            else:
+                die('Invalid license selected.')
         args = parser.parse_args(constructed_args)
 
     args_list = []
