@@ -187,8 +187,8 @@ types = {
                     require('esbuild').build({
                         entryPoints: ['src/main.ts'],
                         bundle: true,
-                        outfile: 'dist/main.js',
-                        watch: true
+                        minify: true,
+                        outfile: 'dist/main.js'
                     }).catch((err) => {
                         console.error(err)
                         process.exit(1)
