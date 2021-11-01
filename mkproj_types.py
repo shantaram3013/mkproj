@@ -29,20 +29,20 @@ types = {
         'files': {
             'index.html': {
                 "contents": textwrap.dedent("""\
-                        <!DOCTYPE html>
-                        <html lang="en">
-                        <head>
-                            <meta charset="UTF-8">
-                            <meta http-equiv="X-UA-Compatible" content="IE=edge">
-                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                            <title>Document</title>
-                            <link rel='stylesheet' href='style.css'>
-                        </head>
-                        <body>
-                            <script defer src='main.js'></script>
-                        </body>
-                        </html>
-                    """),
+                    <!DOCTYPE html>
+                    <html lang="en">
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <title>Document</title>
+                        <link rel='stylesheet' href='style.css'>
+                    </head>
+                    <body>
+                        <script defer src='main.js'></script>
+                    </body>
+                    </html>
+                """),
             },
             "style.css": {
                 "contents": ""
@@ -113,27 +113,27 @@ types = {
         "files": {
             ".gitignore": {
                 "contents": textwrap.dedent("""\
-                                logs
-                                *.log
-                                npm-debug.log*
-                                yarn-debug.log*
-                                yarn-error.log*
-                                lerna-debug.log*
-                                .pnpm-debug.log*
-                                node_modules
-                                report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
-                                pids
-                                *.pid
-                                *.seed
-                                *.pid.lock
-                                node_modules/
-                                *.npm
-                                *.tsbuildinfo
-                                *.tgz
-                                .env
-                                .env.test
-                                .env.production
-                            """)
+                    logs
+                    *.log
+                    npm-debug.log*
+                    yarn-debug.log*
+                    yarn-error.log*
+                    lerna-debug.log*
+                    .pnpm-debug.log*
+                    node_modules
+                    report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+                    pids
+                    *.pid
+                    *.seed
+                    *.pid.lock
+                    node_modules/
+                    *.npm
+                    *.tsbuildinfo
+                    *.tgz
+                    .env
+                    .env.test
+                    .env.production
+                """)
             }
         }
     },
@@ -142,20 +142,20 @@ types = {
         'files': {
             'index.html': {
                 "contents": textwrap.dedent("""\
-                        <!DOCTYPE html>
-                        <html lang="en">
-                        <head>
-                            <meta charset="UTF-8">
-                            <meta http-equiv="X-UA-Compatible" content="IE=edge">
-                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                            <title>Document</title>
-                            <link rel='stylesheet' href='style.css'>
-                        </head>
-                        <body>
-                            <script defer src='dist/main.js'></script>
-                        </body>
-                        </html>
-                    """),
+                    <!DOCTYPE html>
+                    <html lang="en">
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <title>Document</title>
+                        <link rel='stylesheet' href='style.css'>
+                    </head>
+                    <body>
+                        <script defer src='dist/main.js'></script>
+                    </body>
+                    </html>
+                """),
             },
             "style.css": {
                 "contents": ""
@@ -180,7 +180,7 @@ types = {
                             "./src/**/*"
                         ]
                     }
-                """)
+                    """)
             },
             'esbuild.config.js': {
                 'contents': textwrap.dedent("""\
@@ -254,6 +254,26 @@ types = {
 
                     run:
                     	deno run $(PERMS) $(OPTIONS) $(ENTRYPOINT) $(DENO_RUN_OPTIONS)
+                """)
+            }
+        }
+    },
+    'rs': {
+        'commands': [['cargo', 'init', '--vcs', 'none']],
+        "files": {
+            ".gitignore": {
+                "contents": textwrap.dedent("""\
+                    target/
+                """)
+            }
+        }
+    },
+    'rs_lib': {
+        'commands': [['cargo', 'init', '--lib', '--vcs', 'none']],
+        "files": {
+            ".gitignore": {
+                "contents": textwrap.dedent("""\
+                    target/
                 """)
             }
         }
